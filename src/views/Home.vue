@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <img alt="ShellBin logo" class="logo" src="../assets/logo.png" width="110" />
+    <img
+      alt="ShellBin logo"
+      class="logo"
+      src="../assets/logo.png"
+      width="110"
+    />
     <div class="content">
       <h1>ShellBin</h1>
       <br />
