@@ -1,8 +1,10 @@
 <template>
   <div class="result">
     <div class="container">
+      <br />
       <h1>ShellBin</h1>
       <h4>Created: {{ created }} | Slug: {{ slug }}</h4>
+      <br />
       <div class="header">
         <div class="dot red"></div>
         <div class="dot yellow"></div>
@@ -68,8 +70,6 @@ export default {
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, 700, 300);
-
 .result {
   font-family: "Open Sans", sans-serif;
   background: #485563; /* fallback for old browsers */
