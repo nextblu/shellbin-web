@@ -1,5 +1,5 @@
 "use strict";
-
+/* eslint-disable */
 import Vue from "vue";
 import axios from "axios";
 
@@ -57,5 +57,5 @@ Plugin.install = function(Vue, options) {
 };
 
 Vue.use(Plugin);
-
+/* eslint-enable */
 export default Plugin;
