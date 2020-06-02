@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  const axios = require('axios').default;
+
 export default {
   name: "Result.vue",
   data() {
@@ -28,6 +30,25 @@ export default {
   },
   mounted() {
     this.slug = this.$route.params.pathMatch;
+
+    // Loading data from the server
+    axios({
+      method: 'get',
+      url: 'https://shellbin-api.nextblu.com/api/v1/bin'+this.slug,
+      data: {},
+    })
+    .then(function (response) {
+      console.log(response);
+      if (response.status === 200) {
+        if (response.data) {
+          console.log(response.data.resource)
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error("Unable to contact the server. " + error)
+    });
+
   }
 };
 </script>
