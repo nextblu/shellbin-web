@@ -23,7 +23,7 @@ const routes = [
     path: "*",
     name: "result",
     component: () =>
-        import(/* webpackChunkName: "result" */ "../views/Result.vue")
+      import(/* webpackChunkName: "result" */ "../views/Result.vue")
   }
 ];
 
