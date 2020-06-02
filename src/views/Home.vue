@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" width="110" />
+    <img alt="ShellBin logo" class="logo" src="../assets/logo.png" width="110" />
     <div class="content">
       <h1>ShellBin</h1>
       <br />
@@ -45,7 +45,14 @@ export default {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: 100vh;
   color: whitesmoke;
+  overflow: hidden;
 }
+
+.logo {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 .content {
   padding: 50px;
 }
