@@ -2,7 +2,7 @@
   <div class="result">
     <div class="container">
       <h1>ShellBin</h1>
-      <h4>Created: 2020-05-05 17:58:12 | Slug: {{ slug }}</h4>
+      <h4>Created: {{ created }} | Slug: {{ slug }}</h4>
       <div class="header">
         <div class="dot red"></div>
         <div class="dot yellow"></div>
@@ -11,7 +11,10 @@
       <div class="panel">
         <div class="action"></div>
         <div class="output">
-          <p><span class="command symbol">$</span> test</p>
+          <p v-for="(line, i) in data" :key="i">
+            <span class="command symbol">$</span> {{ line }}
+          </p>
+          <p></p>
         </div>
       </div>
     </div>
@@ -19,36 +22,47 @@
 </template>
 
 <script>
-  const axios = require('axios').default;
+const axios = require("axios").default;
 
 export default {
   name: "Result.vue",
   data() {
     return {
-      slug: ""
+      slug: "",
+      created: "",
+      app_data: "",
+      data: []
     };
   },
   mounted() {
     this.slug = this.$route.params.pathMatch;
 
     // Loading data from the server
+    let vm = this;
     axios({
-      method: 'get',
-      url: 'https://shellbin-api.nextblu.com/api/v1/bin'+this.slug,
-      data: {},
+      method: "get",
+      url: "https://shellbin-api.nextblu.com/api/v1/bin" + this.slug,
+      data: {}
     })
-    .then(function (response) {
-      console.log(response);
-      if (response.status === 200) {
-        if (response.data) {
-          console.log(response.data.resource)
-        }
-      }
-    })
-    .catch(function (error) {
-      console.error("Unable to contact the server. " + error)
-    });
+      .then(function(response) {
+        console.log(response);
+        if (response.status === 200) {
+          if (response.data) {
+            console.log(response.data.resource);
+            vm.created = response.data.resource[0].created;
+            vm.app_data = response.data.resource[0].data;
 
+            // Cleaning the data
+            vm.app_data = vm.app_data.replace("[", "");
+            vm.app_data = vm.app_data.replace("]", "");
+            vm.app_data = vm.app_data.split("'").join("");
+            vm.data = vm.app_data.split(",");
+          }
+        }
+      })
+      .catch(function(error) {
+        console.error("Unable to contact the server. " + error);
+      });
   }
 };
 </script>
