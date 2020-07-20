@@ -65,6 +65,7 @@ export default {
       })
       .catch(function(error) {
         console.error("Unable to contact the server. " + error);
+        vm.$router.push({name: 'notFound'})
       });
   }
 };
