@@ -2,9 +2,14 @@
   <div class="result">
     <div class="container">
       <br />
-      <h1>ShellBin</h1>
-      <h4>Created: {{ created }} | Slug: {{ slug }}</h4>
-      <br />
+      <h1 class="title" @click="$router.push({name: 'Home'})"><pre>ShellBin</pre></h1>
+      <p class="details"><pre>Created: {{ created }} | Slug: {{ slug }}</pre></p>
+      <br>
+
+      <!-- icons for actions -->
+      <v-icon name="terminal" alt="Show raw" @click.native="showRaw()"></v-icon>
+
+      <br /><br />
       <div class="header">
         <div class="dot red"></div>
         <div class="dot yellow"></div>
@@ -13,14 +18,25 @@
       <div class="panel">
         <div class="action"></div>
         <div class="output">
-          <p v-for="(line, i) in data" :key="i">
-            <span class="command symbol">$</span> {{ line }}
-          </p>
-          <p></p>
+          <div v-if="consoleShow">
+            <p v-for="(line, i) in data" :key="i">
+              <pre><span class="command symbol">$</span> {{ line }} </pre>
+            </p>
+          </div>
+          <div v-else>
+            <p v-for="(line, i) in data" :key="i">
+            <pre>{{line}}</pre>
+            </p>
+          </div>
+
+          </div>
         </div>
       </div>
+    <br>
+    <div class="footer">
+      The small bin utility | Created with ❤️ by NextBlu | Read the source <a class="footer-link" href="https://github.com/nextblu/shellbin-web">here</a>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -30,11 +46,18 @@ export default {
   name: "Result.vue",
   data() {
     return {
+      consoleShow: true,
       slug: "",
       created: "",
       app_data: "",
       data: []
     };
+  },
+  methods: {
+    showRaw(){
+        console.log('Loading raw version')
+      this.consoleShow = !this.consoleShow;
+    }
   },
   mounted() {
     this.slug = this.$route.params.pathMatch;
@@ -89,14 +112,18 @@ export default {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 80%;
   margin: 0 auto !important;
   height: 400px;
 }
 
-h1,
-h4 {
-  color: #ecf0f1;
+
+.title {
+  color: #ecf0f1 !important;
+}
+
+.details {
+  color: #ecf0f1
 }
 
 .header {
@@ -134,10 +161,11 @@ h4 {
 }
 
 .panel {
-  height: 70vh;
+  height: 100%;
   background: #27292c;
   padding: 20px;
   overflow-y: auto;
+  margin-bottom: 30px;
 }
 
 .action {
@@ -155,8 +183,31 @@ h4 {
 
 .output {
   color: white;
+ font-family: 'Proxima Nova', 'Helvetica Neue', helvetica, arial, sans-serif;
   font-weight: 300;
   margin-top: 5px !important;
   margin-left: 12px !important;
 }
+
+.icon{
+  color:#666;
+  width: 40px;
+}
+.icon:hover{
+  color:white;
+}
+
+.footer {
+  color: white;
+  position: fixed;
+  bottom: 6px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+  .footer-link {
+    color: white;
+  }
+
 </style>

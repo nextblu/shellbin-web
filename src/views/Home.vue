@@ -54,8 +54,9 @@ export default {
 }
 
 .logo {
-  margin-top: 10px;
-  margin-left: 10px;
+  padding: 50px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .content {
