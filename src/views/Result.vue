@@ -59,7 +59,7 @@ export default {
             vm.app_data = vm.app_data.replace("]", "");
             vm.app_data = vm.app_data.split("'").join("");
             vm.app_data = vm.app_data.replace(/ /g, '\u00a0');
-            vm.data = vm.app_data.split(",");
+            vm.data = vm.app_data.split("\n");
           }
         }
       })
