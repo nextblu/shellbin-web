@@ -23,7 +23,7 @@ const routes = [
     path: "/four0four",
     name: "notFound",
     component: () =>
-        import(/* webpackChunkName: "notFound" */ "../views/NotFound.vue")
+      import(/* webpackChunkName: "notFound" */ "../views/NotFound.vue")
   },
   {
     path: "*",

@@ -1,62 +1,113 @@
 <template>
-  <div class="result">
-    <div class="container">
-      <br />
-      <h1 class="title" @click="$router.push({name: 'Home'})"><pre>ShellBin</pre></h1>
-      <p class="details"><pre>Created: {{ created }} | Slug: {{ slug }}</pre></p>
-      <br>
+  <v-app id="inspire">
+    <v-main>
+      <v-container
+          fluid
+      >
+        <v-row
+            align="center"
+            justify="center"
+        >
+          <v-col
+              cols="50"
+          >
 
-      <!-- icons for actions -->
-      <v-icon name="terminal" alt="Show raw" @click.native="showRaw()"></v-icon>
+            <v-card
+                max-width="80%"
+                class="mx-auto"
+            >
+              <v-list-item>
+               <v-list-item-content>
+                  <v-list-item-title class="headline">{{ name || 'No name provided' }}</v-list-item-title>
+                  <v-list-item-subtitle>by {{ creator || 'ghost' }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
 
-      <br /><br />
-      <div class="header">
-        <div class="dot red"></div>
-        <div class="dot yellow"></div>
-        <div class="dot green"></div>
-      </div>
-      <div class="panel">
-        <div class="action"></div>
-        <div class="output">
-          <div v-if="consoleShow">
-            <p v-for="(line, i) in data" :key="i">
-              <pre><span class="command symbol">$</span> {{ line }} </pre>
-            </p>
-          </div>
-          <div v-else>
-            <p v-for="(line, i) in data" :key="i">
-            <pre>{{line}}</pre>
-            </p>
-          </div>
+              <v-row
+                  align="center"
+                  justify="center">
+                <code-highlight language="javascript">
+                  <span v-for="(line, i) in data" :key="i">{{ line }} <br></span>
+                </code-highlight>
+              </v-row>
 
-          </div>
-        </div>
-      </div>
-    <br>
-    <div class="footer">
-      The small bin utility | Created with ❤️ by NextBlu | Read the source <a class="footer-link" href="https://github.com/nextblu/shellbin-web">here</a>
-    </div>
-    </div>
+              <v-card-text>
+                {{ created }}
+              </v-card-text>
+
+              <v-card-actions>
+                <v-btn
+                    text
+                    color="deep-blue accent-4"
+                >
+                  Raw version
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+                <v-btn icon>
+                  <v-icon>mdi-share-variant</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+
+          </v-col>
+        </v-row>
+      </v-container>
+
+    </v-main>
+    <v-fab-transition>
+      <v-btn
+          :key="fabIcon"
+          :color="fabColor"
+          fab
+          large
+          dark
+          bottom
+          right
+          :fixed="true"
+          @click.native="goHome()"
+      >
+        <v-icon>{{ fabIcon }}</v-icon>
+      </v-btn>
+    </v-fab-transition>
+  </v-app>
 </template>
 
 <script>
+import CodeHighlight from "vue-code-highlight/src/CodeHighlight.vue";
+import "vue-code-highlight/themes/duotone-sea.css";
+import "vue-code-highlight/themes/window.css";
 const axios = require("axios").default;
 
 export default {
   name: "Result.vue",
+  components:{
+    CodeHighlight,
+  },
   data() {
     return {
       consoleShow: true,
-      slug: "",
-      created: "",
+      slug: '',
+      created: '',
+      creator: '',
+      name: '',
       app_data: "",
-      data: []
+      data: [],
+      // FAB
+      fabIcon: 'mdi-plus-box-multiple-outline',
+      fabColor: 'red'
     };
   },
   methods: {
     showRaw(){
         console.log('Loading raw version')
       this.consoleShow = !this.consoleShow;
+    },
+    goHome() {
+      this.$router.push({name: 'Home'})
     }
   },
   mounted() {
@@ -74,6 +125,8 @@ export default {
         if (response.status === 200) {
           if (response.data) {
             console.log(response.data.resource);
+            vm.title = response.data.resource[0].title;
+            vm.creator = response.data.resource[0].creator;
             vm.created = response.data.resource[0].created;
             vm.app_data = response.data.resource[0].data;
 
@@ -95,119 +148,5 @@ export default {
 </script>
 
 <style scoped>
-.result {
-  font-family: "Open Sans", sans-serif;
-  background: #485563; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #29323c,
-    #485563
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #29323c,
-    #485563
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 100vh;
-}
-
-.container {
-  max-width: 80%;
-  margin: 0 auto !important;
-  height: 400px;
-}
-
-
-.title {
-  color: #ecf0f1 !important;
-}
-
-.details {
-  color: #ecf0f1
-}
-
-.header {
-  background: linear-gradient(#f1f1f1, #d3d3d3);
-  width: 100%;
-  height: 30px;
-  border-radius: 10px 10px 0 0;
-  position: relative;
-  border-bottom: 2px solid;
-  border-color: #9a9a9a;
-}
-
-.dot {
-  position: absolute;
-  top: 40%;
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
-  display: inline-block;
-}
-
-.red {
-  margin-left: 10px !important;
-  background: #fc625d;
-}
-
-.yellow {
-  margin-left: 30px !important;
-  background: #fdbc40;
-}
-
-.green {
-  margin-left: 50px !important;
-  background: #33c748;
-}
-
-.panel {
-  height: 100%;
-  background: #27292c;
-  padding: 20px;
-  overflow-y: auto;
-  margin-bottom: 30px;
-}
-
-.action {
-  margin-bottom: 10px !important;
-}
-
-.command {
-  width: 100%;
-  height: 20px;
-  background: #27292c;
-  color: #c86762;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.output {
-  color: white;
- font-family: 'Proxima Nova', 'Helvetica Neue', helvetica, arial, sans-serif;
-  font-weight: 300;
-  margin-top: 5px !important;
-  margin-left: 12px !important;
-}
-
-.icon{
-  color:#666;
-  width: 40px;
-}
-.icon:hover{
-  color:white;
-}
-
-.footer {
-  color: white;
-  position: fixed;
-  bottom: 6px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-  .footer-link {
-    color: white;
-  }
 
 </style>
