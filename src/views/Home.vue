@@ -97,9 +97,9 @@
       </v-col>
     </v-row>
     <v-row class="text-center">
-      <v-col>
+      <v-col class="mx-auto">
         <code-highlight language="javascript">
-          console.log("Made with love by NextBlu.");
+          console.log("I ❤️ NextBlu");
         </code-highlight>
 
         <v-sparkline
