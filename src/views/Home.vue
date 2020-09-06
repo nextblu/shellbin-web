@@ -97,9 +97,9 @@
       </v-col>
     </v-row>
     <v-row class="text-center">
-      <v-col class="mx-auto">
-        <code-highlight language="javascript">
-          console.log("I ❤️ NextBlu");
+      <v-col>
+        <code-highlight max-width="200" language="javascript">
+
         </code-highlight>
 
         <v-sparkline
@@ -653,3 +653,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.codeBlock {
+  max-width: 30px !important;
+}
+</style>
