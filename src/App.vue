@@ -28,13 +28,18 @@
       <v-btn icon href="https://github.com/nextblu/" target="_blank">
         <v-icon>mdi-heart-plus-outline</v-icon>
       </v-btn>
-      <v-btn icon href="https://github.com/nextblu/shellbin-web" target="_blank">
+      <v-btn
+        icon
+        href="https://github.com/nextblu/shellbin-web"
+        target="_blank"
+      >
         <v-icon>mdi-github</v-icon>
       </v-btn>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-              href="https://wiki.nextblu.com" target="_blank"
+            href="https://wiki.nextblu.com"
+            target="_blank"
             class="mx-2"
             fab
             dark

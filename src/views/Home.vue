@@ -98,9 +98,7 @@
     </v-row>
     <v-row class="text-center">
       <v-col>
-        <code-highlight max-width="200" language="javascript">
-
-        </code-highlight>
+        <code-highlight max-width="200" language="javascript"> </code-highlight>
 
         <v-sparkline
           :value="value"
@@ -125,11 +123,11 @@
             max-width="calc(100% - 32px)"
           >
             <v-sparkline
-                :labels="value"
-                :value="value"
-                color="white"
-                line-width="1"
-                padding="16"
+              :labels="value"
+              :value="value"
+              color="white"
+              line-width="1"
+              padding="16"
             ></v-sparkline>
           </v-sheet>
 
@@ -143,7 +141,7 @@
               mdi-clock
             </v-icon>
             <span class="caption grey--text font-weight-light"
-              >latest Bin creation {{ lastBinCreationTime|datetime }}</span
+              >latest Bin creation {{ lastBinCreationTime | datetime }}</span
             >
           </v-card-text>
         </v-card>
@@ -583,12 +581,14 @@ export default {
               if (response.data.success === true) {
                 vm.lastBinCreationTime = response.data.latestBin;
                 let stats = response.data.statsPerDay;
-                let bin_number = []
-                stats.reverse().forEach(function(val){
-                  bin_number.push(val.bins)
-                })
+                let bin_number = [];
+                stats.reverse().forEach(function(val) {
+                  bin_number.push(val.bins);
+                });
                 // Limiting the results to the latest 30 days
-                bin_number = bin_number.slice(Math.max(bin_number.length - 30, 0))
+                bin_number = bin_number.slice(
+                  Math.max(bin_number.length - 30, 0)
+                );
                 vm.value = bin_number;
               }
             }

@@ -1,48 +1,35 @@
 <template>
   <v-app>
     <v-app-bar
-        absolute
-        color="#fcb69f"
-        dark
-        shrink-on-scroll
-        src="https://picsum.photos/1920/1080?random"
-        scroll-target="#scrolling-techniques-2"
+      absolute
+      color="#fcb69f"
+      dark
+      shrink-on-scroll
+      src="https://picsum.photos/1920/1080?random"
+      scroll-target="#scrolling-techniques-2"
     >
       <template v-slot:img="{ props }">
         <v-img
-            v-bind="props"
-            gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
 
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>{{
-          title || "No title provided"
-        }}</v-toolbar-title>
+      <v-toolbar-title>{{ title || "No title provided" }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-menu
-          bottom
-          left
-      >
+      <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-              icon
-              color="white"
-              v-bind="attrs"
-              v-on="on"
-          >
+          <v-btn icon color="white" v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 
         <v-list>
-          <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-          >
+          <v-list-item v-for="(item, i) in items" :key="i">
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -50,9 +37,9 @@
     </v-app-bar>
 
     <v-sheet
-        id="scrolling-techniques-2"
-        class="overflow-y-auto"
-        max-height="100%"
+      id="scrolling-techniques-2"
+      class="overflow-y-auto"
+      max-height="100%"
     >
       <v-container style="height: 120px; background-color: red"></v-container>
       <v-main>
@@ -64,15 +51,16 @@
                   <v-list-item-content>
                     <v-list-item-title class="headline"></v-list-item-title>
                     <v-list-item-subtitle
-                    >by {{ creator || "ghost" }}</v-list-item-subtitle
+                      >by {{ creator || "ghost" }}</v-list-item-subtitle
                     >
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-row align="center" justify="center" v-show="!isLoading">
                   <code-highlight :language="language">
-                  <span v-for="(line, i) in data" :key="i">{{ line }} <br
-                  /></span>
+                    <span v-for="(line, i) in data" :key="i"
+                      >{{ line }} <br
+                    /></span>
                   </code-highlight>
                 </v-row>
 
@@ -96,52 +84,36 @@
             </v-col>
           </v-row>
 
-          <v-row
-            v-show="feature"
-          >
-            <v-card
-                max-width="75%"
-                class="mx-auto"
-            >
-
-              <v-app-bar
-                  dark
-                  color="blue"
-              >
-
+          <v-row v-show="feature">
+            <v-card max-width="75%" class="mx-auto">
+              <v-app-bar dark color="blue">
                 <v-toolbar-title>Actions</v-toolbar-title>
               </v-app-bar>
 
               <v-container>
                 <v-row dense>
                   <v-col cols="12">
-                    <v-card
-                        color="#385F73"
-                        dark
-                    >
+                    <v-card color="#385F73" dark>
                       <v-card-title class="headline">REPL</v-card-title>
 
-                      <v-card-subtitle>Launch a REPL based on the language.</v-card-subtitle>
+                      <v-card-subtitle
+                        >Launch a REPL based on the language.</v-card-subtitle
+                      >
                     </v-card>
                   </v-col>
 
-                  <v-col
-                      v-for="(item, i) in items"
-                      :key="i"
-                      cols="12"
-                  >
-                    <v-card
-                        :color="item.color"
-                        dark
-                    >
+                  <v-col v-for="(item, i) in items" :key="i" cols="12">
+                    <v-card :color="item.color" dark>
                       <div class="d-flex flex-no-wrap justify-space-between">
                         <div>
                           <v-card-title
-                              class="headline"
-                              v-text="item.title"
+                            class="headline"
+                            v-text="item.title"
                           ></v-card-title>
 
-                          <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+                          <v-card-subtitle
+                            v-text="item.artist"
+                          ></v-card-subtitle>
                         </div>
                       </div>
                     </v-card>
@@ -150,7 +122,6 @@
               </v-container>
             </v-card>
           </v-row>
-
         </v-container>
       </v-main>
     </v-sheet>
@@ -444,16 +415,16 @@ export default {
       // Glance
       items: [
         {
-          color: '#1F7087',
-          title: 'P2P edit',
-          artist: 'Edit code in live',
+          color: "#1F7087",
+          title: "P2P edit",
+          artist: "Edit code in live"
         },
         {
-          color: '#952175',
-          title: 'Download',
-          artist: 'Download the code',
-        },
-      ],
+          color: "#952175",
+          title: "Download",
+          artist: "Download the code"
+        }
+      ]
     };
   },
   methods: {
