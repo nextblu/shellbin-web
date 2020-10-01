@@ -288,21 +288,13 @@ export default {
         textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1
       );
     },
+    /**
+     * @description Posting bin to server
+     */
     createBin() {
-      // Posting bin to server
       let vm = this;
       vm.isUpdatingCreation = true;
-      axios({
-        method: "POST",
-        url: "https://shellbin-api.nextblu.com/api/v2/bin/",
-        data: {
-          creator: vm.name,
-          title: vm.title,
-          data: vm.binContent,
-          language: vm.binLanguage,
-          private: vm.isPrivate
-        }
-      })
+      axios(this.configuration.bin)
         .then(function(response) {
           console.log(response);
           if (response.status === 200) {
@@ -320,38 +312,25 @@ export default {
         .catch(function(error) {
           console.error("Unable to contact the server. " + error);
           vm.isUpdatingCreation = false;
-          // vm.$router.push({name: 'notFound'})
         });
     },
-    loadStats() {
-      let vm = this;
-      axios({
-        method: "GET",
-        url: "https://shellbin-api.nextblu.com/api/vs/stats/",
-        data: {}
-      })
-        .then(function(response) {
-          if (response.status === 200) {
-            if (response.data) {
-              if (response.data.success === true) {
-                vm.lastBinCreationTime = response.data.latestBin;
-                let stats = response.data.statsPerDay;
-                let bin_number = [];
-                stats.reverse().forEach(function(val) {
-                  bin_number.push(val.bins);
-                });
-                // Limiting the results to the latest 30 days
-                bin_number = bin_number.slice(
-                  Math.max(bin_number.length - 30, 0)
-                );
-                vm.value = bin_number;
-              }
-            }
-          }
-        })
-        .catch(function(error) {
-          console.error("Unable to contact the server. " + error);
-        });
+    async loadStats() {
+      try {
+        const response = await axios(this.configuration.statistics);
+        const { status, data } = response;
+
+        if (status !== 200) return;
+        if (!data || !data.success) return;
+
+        const { latestBin, statsPerDay } = data;
+        this.lastBinCreationTime = latestBin;
+        this.value = statsPerDay
+          .reverse()
+          .map(stat => stat.bins)
+          .slice(Math.max(statsPerDay.length - 30, 0)); // Limiting the results to the latest 30 days
+      } catch (error) {
+        console.error(`Unable to reach the server. ${JSON.stringify(error)}`);
+      }
     }
   },
   computed: {
@@ -374,6 +353,26 @@ export default {
 
         return Object.assign({}, entry, { Description });
       });
+    },
+    configuration() {
+      return {
+        statistics: {
+          method: "GET",
+          url: "https://shellbin-api.nextblu.com/api/vs/stats/",
+          data: {}
+        },
+        bin: {
+          method: "POST",
+          url: "https://shellbin-api.nextblu.com/api/v2/bin/",
+          data: {
+            creator: this.name,
+            title: this.title,
+            data: this.binContent,
+            language: this.binLanguage,
+            private: this.isPrivate
+          }
+        }
+      };
     }
   },
 

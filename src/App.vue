@@ -1,23 +1,5 @@
 <template>
   <v-app>
-    <!--
-    <v-app-bar
-        app
-        clipped-left
-        color="light-blue darken-1"
-    >
-      <span class="title ml-3 mr-5" style="color: whitesmoke;">Shell&nbsp;<span class="font-weight-light">Bin</span></span>
-
-      <v-progress-linear
-          :active="pageLoad"
-          :indeterminate="pageLoad"
-          absolute
-          bottom
-      ></v-progress-linear>
-
-      <v-spacer></v-spacer>
-    </v-app-bar> -->
-
     <v-toolbar color="primary" :dark="true">
       <v-toolbar-title @click="goHome()">
         <span class="title ml-3 mr-5" style="color: whitesmoke;"
@@ -84,10 +66,7 @@
 export default {
   name: "App",
 
-  data: () => ({
-    pageLoad: false
-    //
-  }),
+  data: () => ({ pageLoad: false }),
   created() {
     this.pageLoad = true;
     setTimeout(() => (this.pageLoad = false), 3000);
