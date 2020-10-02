@@ -9,20 +9,41 @@ Vue.use(feather, "v-icon");
 
 Vue.config.productionTip = false;
 
-Vue.filter('date', function(value){
-  if (!value) { return '(n/a)'; }
+Vue.filter("date", function(value) {
+  if (!value) {
+    return "(n/a)";
+  }
   value = new Date(value);
-  return ((value.getDate() < 10) ? '0' : '') + value.getDate() + '/' + ((value.getMonth() < 9) ? '0' : '') + (value.getMonth() + 1) + '/' +
-      value.getFullYear();
+  return (
+    (value.getDate() < 10 ? "0" : "") +
+    value.getDate() +
+    "/" +
+    (value.getMonth() < 9 ? "0" : "") +
+    (value.getMonth() + 1) +
+    "/" +
+    value.getFullYear()
+  );
 });
 
-Vue.filter('datetime', function(value){
-  if (!value) { return '(n/a)'; }
+Vue.filter("datetime", function(value) {
+  if (!value) {
+    return "(n/a)";
+  }
   value = new Date(value);
-  return ((value.getDate() < 10) ? '0' : '') + value.getDate() + '/' + ((value.getMonth() < 9) ? '0' : '') + (value.getMonth() + 1) + '/' +
-      value.getFullYear() + ' ' + value.getHours() + ':' + value.getMinutes();
+  return (
+    (value.getDate() < 10 ? "0" : "") +
+    value.getDate() +
+    "/" +
+    (value.getMonth() < 9 ? "0" : "") +
+    (value.getMonth() + 1) +
+    "/" +
+    value.getFullYear() +
+    " " +
+    value.getHours() +
+    ":" +
+    value.getMinutes()
+  );
 });
-
 
 new Vue({
   router,
