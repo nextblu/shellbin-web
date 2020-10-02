@@ -331,14 +331,12 @@ export default {
   },
   computed: {
     fields() {
-      if (!this.model) return [];
-
-      return Object.keys(this.model).map(key => {
-        return {
-          key,
-          value: this.model[key] || "n/a"
-        };
-      });
+      return !this.model
+        ? []
+        : Object.keys(this.model).map(key => ({
+            key,
+            value: this.model[key] || "n/a"
+          }));
     },
     items() {
       return this.entries.map(entry => {
