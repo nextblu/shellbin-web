@@ -277,12 +277,11 @@ export default {
   }),
   methods: {
     customFilter({ name, abbr }, queryText) {
-      const textOne = name.toLowerCase();
-      const textTwo = abbr.toLowerCase();
       const searchText = queryText.toLowerCase();
 
       return (
-        textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1
+        name.toLowerCase().indexOf(searchText) > -1 ||
+        abbr.toLowerCase().indexOf(searchText) > -1
       );
     },
     /**
