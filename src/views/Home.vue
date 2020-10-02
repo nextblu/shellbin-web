@@ -279,9 +279,9 @@ export default {
     lastBinCreationTime: "23"
   }),
   methods: {
-    customFilter(item, queryText) {
-      const textOne = item.name.toLowerCase();
-      const textTwo = item.abbr.toLowerCase();
+    customFilter({ name, abbr }, queryText) {
+      const textOne = name.toLowerCase();
+      const textTwo = abbr.toLowerCase();
       const searchText = queryText.toLowerCase();
 
       return (
