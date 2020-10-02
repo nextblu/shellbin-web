@@ -364,7 +364,6 @@ export default {
       };
     }
   },
-
   watch: {
     search(val) {
       // Items have already been loaded
@@ -390,7 +389,6 @@ export default {
         .finally(() => (this.isLoading = false));
     }
   },
-
   mounted() {
     this.loadStats();
   }
