@@ -259,7 +259,6 @@ export default {
     binContent: "",
     binLanguage: "",
     isPrivate: true,
-
     // graph
     width: 2,
     radius: 10,
