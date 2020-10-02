@@ -73,8 +73,6 @@
             <v-list v-if="model" class="blue lighten-3">
               <v-list-item v-for="(field, i) in fields" :key="i">
                 <v-list-item-content>
-                  <!-- <v-list-item-title v-text="field.value"></v-list-item-title>
-                  <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle> -->
                   <code-highlight language="python">
                     {{ field.value }}
                   </code-highlight>
@@ -99,7 +97,6 @@
     <v-row class="text-center">
       <v-col>
         <code-highlight max-width="200" language="javascript"> </code-highlight>
-
         <v-sparkline
           :value="value"
           :show-labels="true"
