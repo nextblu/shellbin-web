@@ -291,28 +291,24 @@ export default {
     /**
      * @description Posting bin to server
      */
-    createBin() {
-      let vm = this;
-      vm.isUpdatingCreation = true;
-      axios(this.configuration.bin)
-        .then(function(response) {
-          console.log(response);
-          if (response.status === 200) {
-            if (response.data) {
-              vm.isUpdatingCreation = false;
-              vm.$router.push({
-                name: "result",
-                params: {
-                  binSlug: response.data
-                }
-              });
-            }
-          }
-        })
-        .catch(function(error) {
-          console.error("Unable to contact the server. " + error);
-          vm.isUpdatingCreation = false;
+    async createBin() {
+      try {
+        this.isUpdatingCreation = true;
+        const response = await axios(this.configuration.bin);
+        const { status, data } = response;
+
+        if (status !== 200) return;
+        if (!data) return;
+
+        this.isUpdatingCreation = false;
+        this.$router.push({
+          name: "result",
+          params: { binSlug: data }
         });
+      } catch (error) {
+        console.error(`Unable to reach the server. ${JSON.stringify(error)}`);
+        this.isUpdatingCreation = false;
+      }
     },
     async loadStats() {
       try {
