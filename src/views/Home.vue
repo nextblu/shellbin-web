@@ -246,7 +246,6 @@ export default {
         });
       } catch (error) {
         this.isUpdatingCreation = false;
-
         this.handleErrors(error);
       }
     },
@@ -263,8 +262,7 @@ export default {
         this.handleErrors(error);
       }
     },
-    handleErrors(errorObject) {
-      const { response } = errorObject;
+    handleErrors({ response }) {
       const body = response && `${response.status} - ${response.data.message}`;
 
       this.networkError = { show: true, body };
