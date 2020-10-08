@@ -190,8 +190,6 @@ import "vue-code-highlight/themes/window.css";
 
 import languages from "@/constants/languages";
 
-const axios = require("axios").default;
-
 export default {
   name: "Home",
   components: {
@@ -233,7 +231,7 @@ export default {
     async createBin() {
       try {
         this.isUpdatingCreation = true;
-        const response = await axios(this.configuration.bin);
+        const response = await this.$axios(this.configuration.bin);
         const { status, data } = response;
 
         if (status !== 200) return;
@@ -251,7 +249,7 @@ export default {
     },
     async loadStats() {
       try {
-        const response = await axios(this.configuration.statistics);
+        const response = await this.$axios(this.configuration.statistics);
         const { status, data: statisticsResponse } = response;
 
         if (status !== 200) return;

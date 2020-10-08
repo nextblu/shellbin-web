@@ -4,9 +4,8 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 
-// import "./plugins/axios";
+import "./plugins/axios";
 import vuetify from "./plugins/vuetify";
-
 import "./filters/datetime";
 
 Vue.use(feather, "v-icon");

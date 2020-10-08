@@ -150,7 +150,6 @@ import "vue-code-highlight/themes/duotone-sea.css";
 import "vue-code-highlight/themes/window.css";
 import "prism-es6/components/prism-markup-templating";
 import "prism-es6/components/prism-python";
-const axios = require("axios").default;
 
 export default {
   name: "Result.vue",
@@ -202,7 +201,7 @@ export default {
     console.log(this.slug);
     // Loading data from the server
     let vm = this;
-    axios({
+    this.$axios({
       method: "GET",
       url: "https://shellbin-api.nextblu.com/api/v2/bin/?slug=" + vm.slug,
       data: {}
