@@ -96,37 +96,22 @@
     </v-row>
     <v-row class="text-center">
       <v-col>
-        <code-highlight max-width="200" language="javascript"> </code-highlight>
-        <v-sparkline
-          :value="value"
-          :show-labels="true"
-          :gradient="gradient"
-          :smooth="radius || false"
-          :padding="padding"
-          :line-width="width"
-          :stroke-linecap="lineCap"
-          :gradient-direction="gradientDirection"
-          :fill="fill"
-          :type="type"
-          :auto-line-width="autoLineWidth"
-          auto-draw
-        ></v-sparkline>
-
+        <code-highlight />
         <v-card class="mt-4 mx-auto" max-width="400">
-          <v-sheet
-            class="v-sheet--offset mx-auto"
-            color="cyan"
-            elevation="12"
-            max-width="calc(100% - 32px)"
-          >
-            <v-sparkline
-              :labels="value"
-              :value="value"
-              color="white"
-              line-width="1"
-              padding="16"
-            ></v-sparkline>
-          </v-sheet>
+          <v-sparkline
+            :value="value"
+            :show-labels="true"
+            :gradient="gradient"
+            :smooth="radius || false"
+            :padding="padding"
+            :line-width="width"
+            :stroke-linecap="lineCap"
+            :gradient-direction="gradientDirection"
+            :fill="fill"
+            :type="type"
+            :auto-line-width="autoLineWidth"
+            auto-draw
+          ></v-sparkline>
 
           <v-card-text class="pt-0">
             <div class="title font-weight-light mb-2">Bin stats</div>
@@ -137,9 +122,9 @@
             <v-icon class="mr-2" small>
               mdi-clock
             </v-icon>
-            <span class="caption grey--text font-weight-light"
-              >latest Bin creation {{ lastBinCreationTime | datetime }}</span
-            >
+            <span class="caption grey--text font-weight-light">
+              latest Bin creation {{ lastBinCreationTime | datetime }}
+            </span>
           </v-card-text>
         </v-card>
       </v-col>
