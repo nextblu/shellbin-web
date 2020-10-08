@@ -1,7 +1,7 @@
 <template>
   <v-card class="mt-12">
     <v-sparkline
-      :value="filteredBins"
+      :value="binsValue"
       :show-labels="true"
       :gradient="gradients[5]"
       :smooth="radius || false"
@@ -64,12 +64,12 @@ export default {
       return this.lastBinsResponse && this.lastBinsResponse.statsPerDay;
     },
     /**
-     * @name filteredBins
+     * @name binsValue
      * @description  Limiting the results to the latest 30 days
      * Api values - statistics: [0, 2, 5, 9, 5, 10, 3, 0, 2, 5, 9, 5, 10, 3]
      * @returns {Array | Boolean}
      */
-    filteredBins() {
+    binsValue() {
       return !this.statistics || !this.statistics.length
         ? []
         : this.statistics.map(stat => stat.bins);

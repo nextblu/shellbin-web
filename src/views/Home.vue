@@ -292,10 +292,7 @@ export default {
         statistics: {
           method: "GET",
           url: "https://shellbin-api.nextblu.com/api/vs/stats/",
-          data: {
-            limit: 30,
-            order: "ASC"
-          }
+          params: { limit: 30, order: "ASC" }
         },
         bin: {
           method: "POST",
