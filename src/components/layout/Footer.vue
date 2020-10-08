@@ -6,7 +6,13 @@
           The bin service that you love.
         </strong>
         <v-spacer></v-spacer>
-        <v-btn @click="goToGithub()" class="mx-4" dark icon>
+        <v-btn
+          target="_blank"
+          href="https://github.com/nextblu/shellbin-web"
+          class="mx-4"
+          dark
+          icon
+        >
           <v-icon size="24px">mdi-github</v-icon>
         </v-btn>
       </v-card-title>
