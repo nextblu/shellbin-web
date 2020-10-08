@@ -2,14 +2,13 @@
   <v-container>
     <v-expand-transition>
       <v-alert
-        v-show="isOffline"
+        v-show="networkError.show"
         border="left"
         colored-border
         type="error"
         elevation="2"
       >
-        The server is offline or you are not connected to the network, please
-        try again later.
+        {{ networkError.body }}
       </v-alert>
     </v-expand-transition>
 
@@ -96,37 +95,8 @@
     </v-row>
     <v-row class="text-center">
       <v-col>
-        <code-highlight />
-        <v-card class="mt-4 mx-auto" max-width="400">
-          <v-sparkline
-            :value="value"
-            :show-labels="true"
-            :gradient="gradient"
-            :smooth="radius || false"
-            :padding="padding"
-            :line-width="width"
-            :stroke-linecap="lineCap"
-            :gradient-direction="gradientDirection"
-            :fill="fill"
-            :type="type"
-            :auto-line-width="autoLineWidth"
-            auto-draw
-          ></v-sparkline>
-
-          <v-card-text class="pt-0">
-            <div class="title font-weight-light mb-2">Bin stats</div>
-            <div class="subheading font-weight-light grey--text">
-              Last two weeks
-            </div>
-            <v-divider class="my-2"></v-divider>
-            <v-icon class="mr-2" small>
-              mdi-clock
-            </v-icon>
-            <span class="caption grey--text font-weight-light">
-              latest Bin creation {{ lastBinCreationTime | datetime }}
-            </span>
-          </v-card-text>
-        </v-card>
+        <code-highlight language="javascript" />
+        <LastBin :lastBinsResponse="lastBinsResponse" />
       </v-col>
 
       <v-col>
@@ -219,17 +189,20 @@ import "vue-code-highlight/themes/duotone-sea.css";
 import "vue-code-highlight/themes/window.css";
 
 import languages from "@/constants/languages";
-import gradients from "@/constants/gradients";
 
 const axios = require("axios").default;
 
 export default {
   name: "Home",
   components: {
-    CodeHighlight
+    CodeHighlight,
+    LastBin: () => import("@/components/LastBin")
   },
   data: () => ({
-    isOffline: false,
+    networkError: {
+      show: false,
+      body: ""
+    },
     descriptionLimit: 60,
     entries: [],
     isLoading: false,
@@ -237,27 +210,13 @@ export default {
     search: null,
     isUpdatingCreation: false,
     languages,
-    gradients,
     // bin creation
     name: "",
     title: "",
     binContent: "",
     binLanguage: "",
     isPrivate: true,
-    // graph
-    width: 2,
-    radius: 10,
-    padding: 8,
-    lineCap: "round",
-    gradient: gradients[5],
-    // value: [0, 2, 5, 9, 5, 10, 3, 0, 2, 5, 9, 5, 10, 3], // Api values
-    value: [],
-    labels: ["hello", "test"],
-    gradientDirection: "top",
-    fill: false,
-    type: "trend",
-    autoLineWidth: false,
-    lastBinCreationTime: "23"
+    lastBinsResponse: null
   }),
   methods: {
     customFilter({ name, abbr }, queryText) {
@@ -286,27 +245,31 @@ export default {
           params: { binSlug: data }
         });
       } catch (error) {
-        console.error(`Unable to reach the server. ${JSON.stringify(error)}`);
         this.isUpdatingCreation = false;
+        this.handleErrors({
+          show: true,
+          body: `Unable to reach the server. ${JSON.stringify(error)}`
+        });
       }
     },
     async loadStats() {
       try {
         const response = await axios(this.configuration.statistics);
-        const { status, data } = response;
+        const { status, data: lastBinsResponse } = response;
 
         if (status !== 200) return;
-        if (!data || !data.success) return;
+        if (!lastBinsResponse || !lastBinsResponse.success) return;
 
-        const { latestBin, statsPerDay } = data;
-        this.lastBinCreationTime = latestBin;
-        this.value = statsPerDay
-          .reverse()
-          .map(stat => stat.bins)
-          .slice(Math.max(statsPerDay.length - 30, 0)); // Limiting the results to the latest 30 days
+        this.lastBinsResponse = lastBinsResponse;
       } catch (error) {
-        console.error(`Unable to reach the server. ${JSON.stringify(error)}`);
+        this.handleErrors({
+          show: true,
+          body: `Unable to reach the server. ${JSON.stringify(error)}`
+        });
       }
+    },
+    handleErrors({ show, body }) {
+      this.networkError = { show, body };
     }
   },
   computed: {
