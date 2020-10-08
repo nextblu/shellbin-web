@@ -94,7 +94,7 @@
       </v-col>
     </v-row>
     <v-row class="text-center">
-      <v-col>
+      <v-col align-self="center">
         <code-highlight language="javascript" />
         <LastBin :lastBinsResponse="lastBinsResponse" />
       </v-col>
@@ -292,7 +292,10 @@ export default {
         statistics: {
           method: "GET",
           url: "https://shellbin-api.nextblu.com/api/vs/stats/",
-          data: {}
+          data: {
+            limit: 30,
+            order: "ASC"
+          }
         },
         bin: {
           method: "POST",

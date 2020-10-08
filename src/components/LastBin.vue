@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-4 mx-auto" max-width="400">
+  <v-card class="mt-12">
     <v-sparkline
       :value="filteredBins"
       :show-labels="true"
@@ -55,25 +55,24 @@ export default {
   },
   computed: {
     lastBinCreationTime() {
-      return (this.lastBinsResponse && this.lastBinsResponse.latestBin) || "23";
+      return (
+        (this.lastBinsResponse && this.lastBinsResponse.latestBin) ||
+        new Date().toISOString()
+      );
     },
-    bins() {
+    statistics() {
       return this.lastBinsResponse && this.lastBinsResponse.statsPerDay;
     },
     /**
      * @name filteredBins
      * @description  Limiting the results to the latest 30 days
-     * Api values - bins: [0, 2, 5, 9, 5, 10, 3, 0, 2, 5, 9, 5, 10, 3]
+     * Api values - statistics: [0, 2, 5, 9, 5, 10, 3, 0, 2, 5, 9, 5, 10, 3]
      * @returns {Array | Boolean}
      */
     filteredBins() {
-      if (!this.bins || !this.bins.length) return [];
-
-      const clonedBins = [...this.bins];
-      return clonedBins
-        .sort((a, b) => new Date(b.day) - new Date(a.day))
-        .map(stat => stat.bins)
-        .slice(Math.max(clonedBins.length - 30, 0));
+      return !this.statistics || !this.statistics.length
+        ? []
+        : this.statistics.map(stat => stat.bins);
     }
   }
 };
