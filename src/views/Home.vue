@@ -358,7 +358,7 @@ export default {
       if (this.isLoading) return;
 
       this.isLoading = true;
-      console.log(val);
+      console.log(12, val);
 
       // Lazily load input items
       fetch("https://api.publicapis.org/entries")
