@@ -246,10 +246,8 @@ export default {
         });
       } catch (error) {
         this.isUpdatingCreation = false;
-        this.handleErrors({
-          show: true,
-          body: `Unable to reach the server. ${JSON.stringify(error)}`
-        });
+
+        this.handleErrors(error);
       }
     },
     async loadStats() {
@@ -262,14 +260,14 @@ export default {
 
         this.lastBinsResponse = lastBinsResponse;
       } catch (error) {
-        this.handleErrors({
-          show: true,
-          body: `Unable to reach the server. ${JSON.stringify(error)}`
-        });
+        this.handleErrors(error);
       }
     },
-    handleErrors({ show, body }) {
-      this.networkError = { show, body };
+    handleErrors(errorObject) {
+      const { response } = errorObject;
+      const body = response && `${response.status} - ${response.data.message}`;
+
+      this.networkError = { show: true, body };
     }
   },
   computed: {
