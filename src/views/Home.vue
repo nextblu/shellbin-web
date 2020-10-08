@@ -96,7 +96,7 @@
     <v-row class="text-center">
       <v-col align-self="center">
         <code-highlight language="javascript" />
-        <LastBin :lastBinsResponse="lastBinsResponse" />
+        <LastBin :statisticsResponse="statisticsResponse" />
       </v-col>
 
       <v-col>
@@ -216,7 +216,7 @@ export default {
     binContent: "",
     binLanguage: "",
     isPrivate: true,
-    lastBinsResponse: null
+    statisticsResponse: null
   }),
   methods: {
     customFilter({ name, abbr }, queryText) {
@@ -252,12 +252,12 @@ export default {
     async loadStats() {
       try {
         const response = await axios(this.configuration.statistics);
-        const { status, data: lastBinsResponse } = response;
+        const { status, data: statisticsResponse } = response;
 
         if (status !== 200) return;
-        if (!lastBinsResponse || !lastBinsResponse.success) return;
+        if (!statisticsResponse || !statisticsResponse.success) return;
 
-        this.lastBinsResponse = lastBinsResponse;
+        this.statisticsResponse = statisticsResponse;
       } catch (error) {
         this.handleErrors(error);
       }

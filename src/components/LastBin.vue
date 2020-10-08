@@ -48,7 +48,7 @@ export default {
     autoLineWidth: false
   }),
   props: {
-    lastBinsResponse: {
+    statisticsResponse: {
       type: Object,
       default: () => ({})
     }
@@ -56,12 +56,12 @@ export default {
   computed: {
     lastBinCreationTime() {
       return (
-        (this.lastBinsResponse && this.lastBinsResponse.latestBin) ||
+        (this.statisticsResponse && this.statisticsResponse.latestBin) ||
         new Date().toISOString()
       );
     },
     statistics() {
-      return this.lastBinsResponse && this.lastBinsResponse.statsPerDay;
+      return this.statisticsResponse && this.statisticsResponse.statsPerDay;
     },
     /**
      * @name binsValue
