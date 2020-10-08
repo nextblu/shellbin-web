@@ -55,10 +55,7 @@ export default {
   },
   computed: {
     lastBinCreationTime() {
-      return (
-        (this.lastBinsResponse && this.lastBinsResponse.lastBinCreationTime) ||
-        "23"
-      );
+      return (this.lastBinsResponse && this.lastBinsResponse.latestBin) || "23";
     },
     bins() {
       return this.lastBinsResponse && this.lastBinsResponse.statsPerDay;
