@@ -13,83 +13,8 @@
     </v-expand-transition>
 
     <v-row class="text-center">
-      <v-col class="mb-4">
-        <v-img
-          :src="require('../assets/logo.png')"
-          class="my-3"
-          contain
-          height="110"
-        />
-        <h1 class="display-2 font-weight-bold mb-3">ShellBin</h1>
-
-        <p class="subheading font-weight-regular">
-          Redirect your stdout to a bin with ease,
-          <br />download the client:
-          <a href="https://github.com/nextblu/shellbin/releases" target="_blank"
-            >from github</a
-          >
-        </p>
-      </v-col>
-
-      <v-col>
-        <v-card color="blue lighten-2" dark disabled>
-          <v-card-title class="headline blue lighten-3">
-            Search for Public BINs
-            <v-chip class="ma-2" color="red" text-color="white">
-              Work in progress...
-            </v-chip>
-          </v-card-title>
-          <v-card-text>
-            Explore free bin ready for consumption! For more informations visit
-            <a
-              class="grey--text text--lighten-3"
-              href="https://github.com/nextblu/shellbin-web"
-              target="_blank"
-              >this Github isse</a
-            >.
-          </v-card-text>
-          <v-card-text>
-            <v-autocomplete
-              v-model="model"
-              :items="entries"
-              :loading="isLoading"
-              :search-input.sync="search"
-              color="white"
-              hide-no-data
-              hide-selected
-              item-text="Description"
-              item-value="API"
-              label="Public BINs"
-              placeholder="Start typing to Search"
-              prepend-icon="mdi-database-search"
-              return-object
-            ></v-autocomplete>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-expand-transition>
-            <v-list v-if="model" class="blue lighten-3">
-              <v-list-item v-for="(field, i) in fields" :key="i">
-                <v-list-item-content>
-                  <code-highlight language="python">
-                    {{ field.value }}
-                  </code-highlight>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-expand-transition>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              :disabled="!model"
-              color="grey darken-3"
-              @click="model = null"
-            >
-              Clear
-              <v-icon right>mdi-close-circle</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
+      <StaticBlockWithLogo />
+      <PublicBINs />
     </v-row>
     <v-row class="text-center">
       <v-col align-self="center">
@@ -192,6 +117,8 @@ export default {
   name: "Home",
   components: {
     CodeHighlight,
+    PublicBINs: () => import("@/components/PublicBINs"),
+    StaticBlockWithLogo: () => import("@/components/StaticBlockWithLogo"),
     LastBin: () => import("@/components/LastBin"),
   },
   data: () => ({
@@ -199,11 +126,6 @@ export default {
       show: false,
       body: "",
     },
-    descriptionLimit: 60,
-    entries: [],
-    isLoading: false,
-    model: null,
-    search: null,
     isUpdatingCreation: false,
     languages,
     // bin creation
@@ -265,24 +187,6 @@ export default {
     },
   },
   computed: {
-    fields() {
-      return !this.model
-        ? []
-        : Object.keys(this.model).map((key) => ({
-            key,
-            value: this.model[key] || "n/a",
-          }));
-    },
-    items() {
-      return this.entries.map((entry) => {
-        const Description =
-          entry.Description.length > this.descriptionLimit
-            ? entry.Description.slice(0, this.descriptionLimit) + "..."
-            : entry.Description;
-
-        return Object.assign({}, entry, { Description });
-      });
-    },
     configuration() {
       return {
         statistics: {
@@ -302,36 +206,11 @@ export default {
           },
         },
       };
-    },
-  },
-  watch: {
-    search(val) {
-      // Items have already been loaded
-      if (this.items.length > 0) return;
-
-      // Items have already been requested
-      if (this.isLoading) return;
-
-      this.isLoading = true;
-      console.log(12, val);
-
-      // Lazily load input items
-      fetch("https://api.publicapis.org/entries")
-        .then((res) => res.json())
-        .then((res) => {
-          const { count, entries } = res;
-          this.count = count;
-          this.entries = entries;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
-    },
+    }
   },
   mounted() {
     this.loadStats();
-  },
+  }
 };
 </script>
 
