@@ -12,7 +12,8 @@
         <a
           class="grey--text text--lighten-3"
           href="https://github.com/nextblu/shellbin-web"
-          target="_blank">
+          target="_blank"
+        >
           this Github issue.
         </a>
       </v-card-text>
@@ -47,10 +48,7 @@
       </v-expand-transition>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          :disabled="!model"
-          color="grey darken-3"
-          @click="model = null">
+        <v-btn :disabled="!model" color="grey darken-3" @click="model = null">
           Clear
           <v-icon right>mdi-close-circle</v-icon>
         </v-btn>
@@ -67,7 +65,7 @@ export default {
     descriptionLimit: 60,
     entries: [],
     isLoading: false,
-    search: null
+    search: null,
   }),
   computed: {
     fields() {
@@ -79,17 +77,18 @@ export default {
           }));
     },
     items() {
-      return this.entries.map(entry => {
-        const description = entry.description.length > this.descriptionLimit
-          ? `${entry.description.slice(0, this.descriptionLimit - 3)}...`
-          : entry.description;
+      return this.entries.map((entry) => {
+        const description =
+          entry.description.length > this.descriptionLimit
+            ? `${entry.description.slice(0, this.descriptionLimit - 3)}...`
+            : entry.description;
 
         return {
           ...entry,
-         ...description
-        }
+          ...description,
+        };
       });
-    }
+    },
   },
   // watch: {
   //   search(val) {
@@ -116,5 +115,5 @@ export default {
   //       .finally(() => (this.isLoading = false));
   //   },
   // },
-}
+};
 </script>

@@ -206,11 +206,11 @@ export default {
           },
         },
       };
-    }
+    },
   },
   mounted() {
     this.loadStats();
-  }
+  },
 };
 </script>
 

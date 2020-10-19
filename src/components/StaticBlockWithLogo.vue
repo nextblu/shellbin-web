@@ -6,9 +6,7 @@
       contain
       height="110"
     />
-    <h1 class="display-2 font-weight-bold mb-3">
-      ShellBin
-    </h1>
+    <h1 class="display-2 font-weight-bold mb-3">ShellBin</h1>
 
     <p class="subheading font-weight-regular">
       Redirect your stdout to a bin with ease,
@@ -22,6 +20,6 @@
 
 <script>
 export default {
-  name: "StaticBlockWithLogo"
-}
+  name: "StaticBlockWithLogo",
+};
 </script>
