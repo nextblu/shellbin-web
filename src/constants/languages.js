@@ -66,7 +66,7 @@ export default [
   {
     name: "Firestore security rules",
     abbr: "firestore-security-rules",
-    id: "65"
+    id: "65",
   },
   { name: "Flow", abbr: "flow", id: "66" },
   { name: "Fortran", abbr: "fortran", id: "67" },
@@ -234,5 +234,5 @@ export default [
   { name: "XQuery", abbr: "xquery", id: "229" },
   { name: "YAML", abbr: "yaml", id: "230" },
   { name: "YANG", abbr: "yang", id: "231" },
-  { name: "Zig", abbr: "zig", id: "232" }
+  { name: "Zig", abbr: "zig", id: "232" },
 ];

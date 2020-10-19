@@ -13,8 +13,8 @@ export default {
   name: "App",
   components: {
     Header: () => import("@/components/layout/Header.vue"),
-    Footer: () => import("@/components/layout/Footer.vue")
-  }
+    Footer: () => import("@/components/layout/Footer.vue"),
+  },
 };
 </script>
 

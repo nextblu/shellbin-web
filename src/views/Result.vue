@@ -69,9 +69,7 @@
                 </v-card-text>
 
                 <v-card-actions>
-                  <v-btn text color="deep-blue accent-4">
-                    Raw version
-                  </v-btn>
+                  <v-btn text color="deep-blue accent-4"> Raw version </v-btn>
                   <v-spacer></v-spacer>
                   <v-btn icon>
                     <v-icon>mdi-heart</v-icon>
@@ -154,7 +152,7 @@ import "prism-es6/components/prism-python";
 export default {
   name: "Result.vue",
   components: {
-    CodeHighlight
+    CodeHighlight,
   },
   data() {
     return {
@@ -177,14 +175,14 @@ export default {
         {
           color: "#1F7087",
           title: "P2P edit",
-          artist: "Edit code in live"
+          artist: "Edit code in live",
         },
         {
           color: "#952175",
           title: "Download",
-          artist: "Download the code"
-        }
-      ]
+          artist: "Download the code",
+        },
+      ],
     };
   },
   methods: {
@@ -194,7 +192,7 @@ export default {
     },
     goHome() {
       this.$router.push({ name: "Home" });
-    }
+    },
   },
   mounted() {
     this.slug = this.$route.params.binSlug;
@@ -204,9 +202,9 @@ export default {
     this.$axios({
       method: "GET",
       url: "https://shellbin-api.nextblu.com/api/v2/bin/?slug=" + vm.slug,
-      data: {}
+      data: {},
     })
-      .then(function(response) {
+      .then(function (response) {
         if (response.status === 200) {
           if (response.data) {
             vm.title = response.data.resource[0].title;
@@ -225,11 +223,11 @@ export default {
           }
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error("Unable to contact the server. " + error);
         vm.isLoading = false;
         //vm.$router.push({name: 'notFound'})
       });
-  }
+  },
 };
 </script>

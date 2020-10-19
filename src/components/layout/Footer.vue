@@ -2,9 +2,7 @@
   <v-footer dark padless>
     <v-card class="flex" flat tile>
       <v-card-title class="teal">
-        <strong class="subheading">
-          The bin service that you love.
-        </strong>
+        <strong class="subheading"> The bin service that you love. </strong>
         <v-spacer></v-spacer>
         <v-btn
           target="_blank"
@@ -26,6 +24,6 @@
 
 <script>
 export default {
-  name: "Footer"
+  name: "Footer",
 };
 </script>

@@ -2,12 +2,8 @@
   <v-toolbar color="primary" :dark="true">
     <router-link to="/">
       <v-toolbar-title>
-        <span class="title mx-2 white-smoke">
-          Shell
-        </span>
-        <span class="font-weight-light white-smoke">
-          Bin
-        </span>
+        <span class="title mx-2 white-smoke"> Shell </span>
+        <span class="font-weight-light white-smoke"> Bin </span>
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>
@@ -41,6 +37,6 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
 };
 </script>

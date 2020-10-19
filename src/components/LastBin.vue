@@ -17,13 +17,9 @@
 
     <v-card-text class="pt-0">
       <div class="title font-weight-light mb-2">Bin stats</div>
-      <div class="subheading font-weight-light grey--text">
-        Last two weeks
-      </div>
+      <div class="subheading font-weight-light grey--text">Last two weeks</div>
       <v-divider class="my-2"></v-divider>
-      <v-icon class="mr-2" small>
-        mdi-clock
-      </v-icon>
+      <v-icon class="mr-2" small> mdi-clock </v-icon>
       <span class="caption grey--text font-weight-light">
         latest Bin creation {{ lastBinCreationTime | datetime }}
       </span>
@@ -45,13 +41,13 @@ export default {
     gradientDirection: "top",
     type: "trend",
     fill: false,
-    autoLineWidth: false
+    autoLineWidth: false,
   }),
   props: {
     statisticsResponse: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     lastBinCreationTime() {
@@ -72,8 +68,8 @@ export default {
     binsValue() {
       return !this.statistics || !this.statistics.length
         ? []
-        : this.statistics.map(stat => stat.bins);
-    }
-  }
+        : this.statistics.map((stat) => stat.bins);
+    },
+  },
 };
 </script>

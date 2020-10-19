@@ -20,9 +20,7 @@
           contain
           height="110"
         />
-        <h1 class="display-2 font-weight-bold mb-3">
-          ShellBin
-        </h1>
+        <h1 class="display-2 font-weight-bold mb-3">ShellBin</h1>
 
         <p class="subheading font-weight-regular">
           Redirect your stdout to a bin with ease,
@@ -194,12 +192,12 @@ export default {
   name: "Home",
   components: {
     CodeHighlight,
-    LastBin: () => import("@/components/LastBin")
+    LastBin: () => import("@/components/LastBin"),
   },
   data: () => ({
     networkError: {
       show: false,
-      body: ""
+      body: "",
     },
     descriptionLimit: 60,
     entries: [],
@@ -214,7 +212,7 @@ export default {
     binContent: "",
     binLanguage: "",
     isPrivate: true,
-    statisticsResponse: null
+    statisticsResponse: null,
   }),
   methods: {
     customFilter({ name, abbr }, queryText) {
@@ -240,7 +238,7 @@ export default {
         this.isUpdatingCreation = false;
         this.$router.push({
           name: "result",
-          params: { binSlug: data }
+          params: { binSlug: data },
         });
       } catch (error) {
         this.isUpdatingCreation = false;
@@ -264,19 +262,19 @@ export default {
       const body = response && `${response.status} - ${response.data.message}`;
 
       this.networkError = { show: true, body };
-    }
+    },
   },
   computed: {
     fields() {
       return !this.model
         ? []
-        : Object.keys(this.model).map(key => ({
+        : Object.keys(this.model).map((key) => ({
             key,
-            value: this.model[key] || "n/a"
+            value: this.model[key] || "n/a",
           }));
     },
     items() {
-      return this.entries.map(entry => {
+      return this.entries.map((entry) => {
         const Description =
           entry.Description.length > this.descriptionLimit
             ? entry.Description.slice(0, this.descriptionLimit) + "..."
@@ -290,7 +288,7 @@ export default {
         statistics: {
           method: "GET",
           url: "https://shellbin-api.nextblu.com/api/vs/stats/",
-          params: { limit: 30, order: "ASC" }
+          params: { limit: 30, order: "ASC" },
         },
         bin: {
           method: "POST",
@@ -300,11 +298,11 @@ export default {
             title: this.title,
             data: this.binContent,
             language: this.binLanguage,
-            private: this.isPrivate
-          }
-        }
+            private: this.isPrivate,
+          },
+        },
       };
-    }
+    },
   },
   watch: {
     search(val) {
@@ -319,21 +317,21 @@ export default {
 
       // Lazily load input items
       fetch("https://api.publicapis.org/entries")
-        .then(res => res.json())
-        .then(res => {
+        .then((res) => res.json())
+        .then((res) => {
           const { count, entries } = res;
           this.count = count;
           this.entries = entries;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => (this.isLoading = false));
-    }
+    },
   },
   mounted() {
     this.loadStats();
-  }
+  },
 };
 </script>
 
